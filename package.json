@@ -79,6 +79,7 @@
   },
   "devDependencies": {
     "@faker-js/faker": "10.1.0",
+    "@oxlint/binding-darwin-arm64": "^1.65.0",
     "@tailwindcss/postcss": "^4.1.10",
     "@types/formidable": "^3.4.6",
     "@types/jest": "^29.5.14",
