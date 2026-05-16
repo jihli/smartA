@@ -2,7 +2,7 @@ import { createTRPCRouter, protectedProcedure } from '../trpc';
 import { z } from 'zod';
 import { whichBankConnectionConfigured } from '~/server/bankTransactionHelper';
 import { InstitutionsOutput, TransactionOutput } from '~/types/bank.types';
-import { bankTransactionService } from '../services/bankTransactions/bankTransactionService';
+import { bankTransactionService } from '~/server/services/bank-transactions';
 import { TRPCError } from '@trpc/server';
 
 export const bankTransactionsRouter = createTRPCRouter({

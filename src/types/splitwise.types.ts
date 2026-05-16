@@ -1,15 +1,4 @@
-import { type NextPage } from 'next';
-import { type User } from 'next-auth';
 import { z } from 'zod';
-import { type CurrencyCode } from './lib/currency';
-
-export type NextPageWithUser<T = {}> = NextPage<{ user: User } & T> & { auth: boolean };
-
-export interface PushMessage {
-  title: string;
-  message: string;
-  data?: { url?: string };
-}
 
 export interface SplitwisePicture {
   small: string;
@@ -35,16 +24,6 @@ export interface SplitwiseGroup {
   id: number;
   name: string;
   members: SplitwiseUser[];
-}
-
-export interface TransactionAddInputModel {
-  date: Date;
-  description: string;
-  amountStr: string;
-  amount: bigint;
-  currency: CurrencyCode;
-  transactionId?: string;
-  expenseId?: string;
 }
 
 const SplitwisePictureSchema = z.object({

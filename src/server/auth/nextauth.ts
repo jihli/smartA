@@ -10,7 +10,7 @@ import KeycloakProvider from 'next-auth/providers/keycloak';
 import { env } from '~/env';
 import { db } from '~/server/db';
 
-import { sendSignUpEmail } from './mailer';
+import { sendSignUpEmail } from '../mailer';
 import { getBaseUrl } from '~/utils/api';
 import type { OAuthConfig } from 'next-auth/providers/oauth';
 

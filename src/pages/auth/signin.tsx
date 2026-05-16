@@ -85,9 +85,8 @@ const Home: NextPage<{
         const clientProviders = await getProviders();
         if (clientProviders && Object.keys(clientProviders).length > 0) {
           setProviders(Object.values(clientProviders));
-        } else {
-          throw new Error('No providers returned from getProviders()');
         }
+        // Leave providers empty if none configured — UI handles empty state
       } catch (error) {
         console.error('Error fetching providers client-side:', error);
         toast.error(t('errors.no_providers'), { duration: 8000 });

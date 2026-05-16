@@ -1,6 +1,14 @@
 name: split-pro-dev
 
 services:
+  mailpit:
+    image: axllent/mailpit:latest
+    container_name: splitpro-mailpit
+    restart: always
+    ports:
+      - '1025:1025'
+      - '8025:8025'
+
   postgres:
     image: ossapps/postgres:18.3-trixie
     container_name: ${POSTGRES_CONTAINER_NAME:-splitpro-db}

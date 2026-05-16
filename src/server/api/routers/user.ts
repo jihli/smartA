@@ -17,13 +17,13 @@ import { SplitwiseGroupSchema, SplitwiseUserSchema } from '~/types';
 import {
   getSubscriptionEndpoint,
   sendPushNotificationToUsers,
-} from '../services/notificationService';
+} from '~/server/services/notification.service';
 import {
   getCompleteFriendsDetails,
   getCompleteGroupDetails,
   importGroupFromSplitwise,
   importUserBalanceFromSplitWise,
-} from '../services/splitService';
+} from '~/server/services/split.service';
 
 export const userRouter = createTRPCRouter({
   me: protectedProcedure.query(({ ctx }) => ctx.session.user),

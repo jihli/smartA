@@ -5,8 +5,8 @@ import { db } from '~/server/db';
 import { type SplitwiseGroup, type SplitwiseUser } from '~/types';
 
 import type { CreateExpense } from '~/types/expense.types';
-import { sendExpensePushNotification } from './notificationService';
-import { createRecurringExpenseJob } from './scheduleService';
+import { sendExpensePushNotification } from './notification.service';
+import { createRecurringExpenseJob } from './schedule.service';
 import { getCurrencyHelpers } from '~/utils/numbers';
 import { isCurrencyCode } from '~/lib/currency';
 import { DEFAULT_CATEGORY } from '~/lib/category';
@@ -330,7 +330,15 @@ export async function getCompleteFriendsDetails(userId: number) {
     },
   });
 
-  const friends = viewBalances.reduce(
+  const friends = viewBalances.reduce< Record<
+      number,
+      {
+        id: number;
+        email?: string | null;
+        name?: string | null;
+        balances: { currency: string; amount: bigint }[];
+      }
+    >>(
     (acc, balance) => {
       const { friendId } = balance;
       acc[friendId] ??= {
@@ -349,15 +357,7 @@ export async function getCompleteFriendsDetails(userId: number) {
 
       return acc;
     },
-    {} as Record<
-      number,
-      {
-        id: number;
-        email?: string | null;
-        name?: string | null;
-        balances: { currency: string; amount: bigint }[];
-      }
-    >,
+    {},
   );
 
   return friends;
@@ -389,7 +389,7 @@ export async function importUserBalanceFromSplitWise(
 
   const users = await createUsersFromSplitwise(splitWiseUsers);
 
-  const userMap = users.reduce(
+  const userMap = users.reduce< Record<string, User>>(
     (acc, user) => {
       if (user.email) {
         acc[user.email] = user;
@@ -397,7 +397,7 @@ export async function importUserBalanceFromSplitWise(
 
       return acc;
     },
-    {} as Record<string, User>,
+    {},
   );
 
   const currencyHelperCache: Record<string, ReturnType<typeof getCurrencyHelpers>['toSafeBigInt']> =
@@ -433,7 +433,7 @@ export async function importUserBalanceFromSplitWise(
               create: [
                 {
                   userId: currentUserId,
-                  amount: amount,
+                  amount,
                 },
                 {
                   userId: dbUser.id,
@@ -503,7 +503,7 @@ export async function importGroupFromSplitwise(
 
   const users = await createUsersFromSplitwise(Object.values(splitwiseUserMap));
 
-  const userMap = users.reduce(
+  const userMap = users.reduce< Record<string, User>>(
     (acc, user) => {
       if (user.email) {
         acc[user.email] = user;
@@ -511,7 +511,7 @@ export async function importGroupFromSplitwise(
 
       return acc;
     },
-    {} as Record<string, User>,
+    {},
   );
 
   const missingGroups = await Promise.all(

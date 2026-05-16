@@ -4,7 +4,7 @@ import { z } from 'zod';
 
 import { simplifyDebts } from '~/lib/simplify';
 import { createTRPCRouter, groupProcedure, protectedProcedure } from '~/server/api/trpc';
-import { sendGroupSimplifyDebtsToggleNotification } from '~/server/api/services/notificationService';
+import { sendGroupSimplifyDebtsToggleNotification } from '~/server/services/notification.service';
 import { SplitType } from '@prisma/client';
 import {
   defaultSplitInputSchema,

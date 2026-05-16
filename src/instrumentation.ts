@@ -16,8 +16,7 @@ export async function register() {
     const { validateAuthEnv } = await import('./server/auth');
     validateAuthEnv();
 
-    const { checkRecurrenceNotifications } =
-      await import('./server/api/services/notificationService');
+    const { checkRecurrenceNotifications } = await import('./server/services/notification.service');
     console.log('Starting recurrent expense notification checking...');
     setTimeout(checkRecurrenceNotifications, 1000 * 10); // Start after 10 seconds
   }
@@ -32,7 +31,7 @@ export async function register() {
     console.log('Setting up cron jobs...');
 
     const { createRecurringDeleteBankCacheJob } =
-      await import('./server/api/services/scheduleService');
+      await import('./server/services/schedule.service');
 
     console.log(
       `Creating cron job for cleaning up bank cache ${env.CLEAR_CACHE_CRON_RULE} with interval ${env.CACHE_RETENTION_INTERVAL}`,

@@ -1,7 +1,7 @@
 import { type GetServerSideProps } from 'next';
 import { toast } from 'sonner';
 
-import { joinGroup } from '~/server/api/services/splitService';
+import { joinGroup } from '~/server/services/split.service';
 import { getServerAuthSession } from '~/server/auth';
 import type { NextPageWithUser } from '~/types';
 

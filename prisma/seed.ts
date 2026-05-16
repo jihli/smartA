@@ -1,6 +1,6 @@
 import { PrismaClient, SplitType } from '@prisma/client';
 
-import { createExpense, deleteExpense, editExpense } from '~/server/api/services/splitService';
+import { createExpense, deleteExpense, editExpense } from '~/server/services/split.service';
 import { dummyData } from '~/dummies';
 import { calculateParticipantSplit } from '~/store/addStore';
 import assert from 'node:assert';

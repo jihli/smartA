@@ -44,15 +44,11 @@ export async function sendSignUpEmail(email: string, url: string, token: string)
 
   console.log(env.NODE_ENV);
 
-  if ('development' === env.NODE_ENV) {
-    console.log('Sign in link : ', email, url, token);
-    return true;
-  }
-
   const subject = 'Sign in to SplitPro';
   const text = `Hey,\n\nYou can sign in to SplitPro by clicking the below URL:\n${url}\n\nYou can also use this OTP: ${token}\n\nThanks,\nSplitPro Team`;
   const html = `<p>Hey,</p> <p>You can sign in to SplitPro by clicking the below URL:</p><p><a href="${url}">Sign in to ${host}</a></p><p>You can also use this OTP: <b>${token}</b></p><br /><br /><p>Thanks,</p><br/>SplitPro Team</p>`;
 
+  console.log('Sign in link : ', email, url, token);
   return await sendMail(email, subject, text, html);
 }
 
@@ -63,15 +59,11 @@ export async function sendInviteEmail(email: string, name: string) {
 
   const { host } = new URL(env.NEXTAUTH_URL);
 
-  if ('development' === env.NODE_ENV) {
-    console.log('Sending invite email', email, name);
-    return;
-  }
-
   const subject = 'Invitation to SplitPro';
   const text = `Hey,\n\nYou have been invited to SplitPro by ${name}. It's a completely open source free alternative to splitwise. You can sign in to SplitPro by clicking the below URL:\n${env.NEXTAUTH_URL}\n\nThanks,\nSplitPro Team`;
   const html = `<p>Hey,</p> <p>You have been invited to SplitPro by ${name}. It's a completely open source free alternative to splitwise. You can sign in to SplitPro by clicking the below URL:</p><p><a href="${env.NEXTAUTH_URL}">Sign in to ${host}</a></p><br><p>Thanks,<br/>SplitPro Team</p>`;
 
+  console.log('Sending invite email', email, name);
   await sendMail(email, subject, text, html);
 }
 

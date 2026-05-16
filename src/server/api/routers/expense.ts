@@ -13,13 +13,12 @@ import {
   getBatchCurrencyRatesSchema,
   getCurrencyRateSchema,
 } from '~/types/expense.types';
-import { createExpense, deleteExpense, editExpense } from '../services/splitService';
-import { currencyRateProvider } from '../services/currencyRateService';
+import { createExpense, deleteExpense, editExpense } from '~/server/services/split.service';
+import { currencyRateProvider } from '~/server/services/currency-rate.service';
 import { type CurrencyCode, isCurrencyCode } from '~/lib/currency';
 import { SplitType } from '@prisma/client';
 import { DEFAULT_CATEGORY } from '~/lib/category';
 import { getUserMap } from './user';
-import { FriendBalance } from '~/components/Friend/FriendBalance';
 
 export const expenseRouter = createTRPCRouter({
   getCumulatedBalances: protectedProcedure.query(async ({ ctx }) => {
@@ -193,7 +192,7 @@ export const expenseRouter = createTRPCRouter({
         splitType: SplitType.CURRENCY_CONVERSION,
         category: DEFAULT_CATEGORY,
         participants: [
-          { userId: senderId, amount: amount },
+          { userId: senderId, amount },
           { userId: receiverId, amount: -amount },
         ],
         groupId,
@@ -631,8 +630,8 @@ const validateEditExpensePermission = async (expenseId: string, userId: number):
     db.expenseParticipant.findUnique({
       where: {
         expenseId_userId: {
-          expenseId: expenseId,
-          userId: userId,
+          expenseId,
+          userId,
         },
       },
     }),

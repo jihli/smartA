@@ -2,7 +2,7 @@ import type { PrismaClient } from '@prisma/client';
 import { SplitType } from '@prisma/client';
 
 import { type SettleupCandidate } from '~/dummies/expenseGenerator';
-import { createExpense } from '~/server/api/services/splitService';
+import { createExpense } from '~/server/services/split.service';
 import { DEFAULT_CATEGORY } from '~/lib/category';
 import { BigMath } from '~/utils/numbers';
 
